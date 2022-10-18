@@ -1,4 +1,5 @@
 using AustinWebAPI.API.Data;
+using AustinWebAPI.API.Repos;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,10 @@ builder.Services.AddDbContext<DBContext>(o =>
 {
     o.UseSqlServer(builder.Configuration.GetConnectionString("AustinDB"));
 });
+
+builder.Services.AddScoped<IRegionRepo, RegionRepo>();
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 
